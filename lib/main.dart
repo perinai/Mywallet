@@ -1,67 +1,71 @@
 import 'package:flutter/material.dart'; // Importing the Material package.
 
 void main() {
-  runApp(MyPocketWallet());
+  runApp(const MyPocketWallet());
 }
 
 // Root widget for the app.
 class MyPocketWallet extends StatelessWidget {
+  const MyPocketWallet({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'My Pocket Wallet',
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: LoginPage(), // Initial screen.
+      home: const LoginPage(), // Initial screen.
     );
   }
 }
 
 // LoginPage widget for the login screen.
 class LoginPage extends StatelessWidget {
+  const LoginPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Login')),
+      appBar: AppBar(title: const Text('Login')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            TextField(
+            const TextField(
               decoration: InputDecoration(
                 labelText: 'Username',
                 border: OutlineInputBorder(),
               ),
             ),
-            SizedBox(height: 20),
-            TextField(
+            const SizedBox(height: 20),
+            const TextField(
               obscureText: true,
               decoration: InputDecoration(
                 labelText: 'Password',
                 border: OutlineInputBorder(),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => DashboardPage()),
+                  MaterialPageRoute(builder: (context) => const DashboardPage()),
                 );
               },
-              child: Text('Login'),
+              child: const Text('Login'),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             TextButton(
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => SignUpPage()),
+                  MaterialPageRoute(builder: (context) => const SignUpPage()),
                 );
               },
-              child: Text('Don’t have an account? Sign Up'),
+              child: const Text('Don’t have an account? Sign Up'),
             ),
           ],
         ),
@@ -72,6 +76,8 @@ class LoginPage extends StatelessWidget {
 
 // SignUpPage widget with validation and password confirmation.
 class SignUpPage extends StatefulWidget {
+  const SignUpPage({super.key});
+
   @override
   _SignUpPageState createState() => _SignUpPageState();
 }
@@ -92,7 +98,7 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Sign Up')),
+      appBar: AppBar(title: const Text('Sign Up')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
@@ -100,14 +106,14 @@ class _SignUpPageState extends State<SignUpPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text(
+              const Text(
                 'Create Your Account',
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               TextFormField(
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Username',
                   border: OutlineInputBorder(),
                 ),
@@ -118,9 +124,9 @@ class _SignUpPageState extends State<SignUpPage> {
                   return null;
                 },
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               TextFormField(
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Email',
                   border: OutlineInputBorder(),
                 ),
@@ -134,11 +140,11 @@ class _SignUpPageState extends State<SignUpPage> {
                   return null;
                 },
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               TextFormField(
                 controller: _passwordController,
                 obscureText: true,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Password',
                   border: OutlineInputBorder(),
                 ),
@@ -152,11 +158,11 @@ class _SignUpPageState extends State<SignUpPage> {
                   return null;
                 },
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               TextFormField(
                 controller: _confirmPasswordController,
                 obscureText: true,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Confirm Password',
                   border: OutlineInputBorder(),
                 ),
@@ -170,18 +176,18 @@ class _SignUpPageState extends State<SignUpPage> {
                   return null;
                 },
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     // If the form is valid, navigate to the login screen.
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Account created successfully!')),
+                      const SnackBar(content: Text('Account created successfully!')),
                     );
                     Navigator.pop(context);
                   }
                 },
-                child: Text('Sign Up'),
+                child: const Text('Sign Up'),
               ),
             ],
           ),
@@ -193,27 +199,29 @@ class _SignUpPageState extends State<SignUpPage> {
 
 // DashboardPage widget for the main dashboard screen.
 class DashboardPage extends StatelessWidget {
+  const DashboardPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Dashboard')),
+      appBar: AppBar(title: const Text('Dashboard')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               'Hello, User!',
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Container(
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
                 color: Colors.blueAccent,
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: Column(
+              child: const Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
