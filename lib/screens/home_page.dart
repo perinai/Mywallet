@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_pocket_wallet/widgets/bottomNavigationWidget.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -18,47 +19,12 @@ class HomePage extends StatelessWidget {
               // Card Section
               _materCardSection(),
               const SizedBox(height: 30),
-
               // Grid Menu Section
-              Expanded(
-                child: GridView.count(
-                  crossAxisCount: 3,
-                  crossAxisSpacing: 15,
-                  mainAxisSpacing: 15,
-                  children: [
-                    _buildMenuItem(
-                        Icons.account_balance_wallet, 'Account\nand Card'),
-                    _buildMenuItem(Icons.swap_horiz, 'Transfer'),
-                    _buildMenuItem(Icons.attach_money, 'Withdraw'),
-                    _buildMenuItem(Icons.phone_android, 'Mobile\nrecharge'),
-                    _buildMenuItem(Icons.receipt, 'Pay the bill'),
-                    _buildMenuItem(Icons.credit_card, 'Credit card'),
-                    _buildMenuItem(Icons.insert_chart, 'Transaction\nreport'),
-                  ],
-                ),
-              ),
+              _middleScreenButtons(),
             ],
           ),
         ),
-        bottomNavigationBar: BottomNavigationBar(
-          currentIndex: 0,
-          selectedItemColor: Colors.blue,
-          unselectedItemColor: Colors.grey,
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.mail),
-              label: 'Messages',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
-              label: 'Settings',
-            ),
-          ],
-        ),
+        bottomNavigationBar: bottomNavigationBar(),
       ),
     );
   }
@@ -80,6 +46,26 @@ class HomePage extends StatelessWidget {
           style: const TextStyle(fontSize: 14),
         ),
       ],
+    );
+  }
+
+  // Grid Menu Section
+  Widget _middleScreenButtons() {
+    return Expanded(
+      child: GridView.count(
+        crossAxisCount: 3,
+        crossAxisSpacing: 15,
+        mainAxisSpacing: 15,
+        children: [
+          _buildMenuItem(Icons.account_balance_wallet, 'Account\nand Card'),
+          _buildMenuItem(Icons.swap_horiz, 'Transfer'),
+          _buildMenuItem(Icons.attach_money, 'Withdraw'),
+          _buildMenuItem(Icons.phone_android, 'Mobile\nrecharge'),
+          _buildMenuItem(Icons.receipt, 'Pay the bill'),
+          _buildMenuItem(Icons.credit_card, 'Credit card'),
+          _buildMenuItem(Icons.insert_chart, 'Transaction\nreport'),
+        ],
+      ),
     );
   }
 }
@@ -179,3 +165,4 @@ Widget _materCardSection() {
     ),
   );
 }
+
