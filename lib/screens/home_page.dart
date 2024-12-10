@@ -5,25 +5,15 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFFFFFDFF), // Background color
-      body: SafeArea(
-        child: Padding(
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: const Color(0xFFFFFDFF), // Background color
+        body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Greeting Section
-              const SizedBox(height: 20),
-              const Text(
-                'Good Morning,',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              ),
-              const Text(
-                'Gega!',
-                style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 20),
 
               // Card Section
               Container(
@@ -122,25 +112,25 @@ class HomePage extends StatelessWidget {
             ],
           ),
         ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 0,
-        selectedItemColor: Colors.blue,
-        unselectedItemColor: Colors.grey,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.mail),
-            label: 'Messages',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Settings',
-          ),
-        ],
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: 0,
+          selectedItemColor: Colors.blue,
+          unselectedItemColor: Colors.grey,
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.mail),
+              label: 'Messages',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.settings),
+              label: 'Settings',
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -164,4 +154,24 @@ class HomePage extends StatelessWidget {
       ],
     );
   }
+}
+
+// Greeting Section
+Widget _upperText() {
+  return Container(
+    child: const Column(
+      children: [
+        SizedBox(height: 20),
+        Text(
+          'Good Morning,',
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+        ),
+        Text(
+          'Gega!',
+          style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+        ),
+        SizedBox(height: 20),
+      ],
+    ),
+  );
 }
