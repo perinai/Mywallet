@@ -23,10 +23,10 @@ class MyPocketWallet extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'My Pocket Wallet',
       theme: ThemeData(primarySwatch: Colors.blue),
-      initialRoute: '/',
+      initialRoute: '/home',
       routes: {
         '/': (context) => const Splashscreen(),
-        '/home': (context) => const HomePage(),
+        '/home': (context) =>  HomePage(),
         // Add more routes as needed
       },
     );
