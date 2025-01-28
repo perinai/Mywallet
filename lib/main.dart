@@ -26,7 +26,7 @@ class MyPocketWallet extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => const Splashscreen(),
-        '/home': (context) =>  HomePage(),
+        '/home': (context) =>  const HomePage(),
         // Add more routes as needed
       },
     );
