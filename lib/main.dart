@@ -23,7 +23,7 @@ class MyPocketWallet extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'My Pocket Wallet',
       theme: ThemeData(primarySwatch: Colors.blue),
-      initialRoute: '/home',
+      initialRoute: '/',
       routes: {
         '/': (context) => const Splashscreen(),
         '/home': (context) =>  HomePage(),
