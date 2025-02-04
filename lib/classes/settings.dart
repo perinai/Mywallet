@@ -9,7 +9,7 @@ class SettingsScreen extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text(
-          'Setting',
+          'Profile Settings',
           style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
@@ -30,7 +30,7 @@ class SettingsScreen extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           const Text(
-            'Solomon Ondula',
+            'User name',
             style: TextStyle(
                 fontSize: 18, fontWeight: FontWeight.bold, color: Colors.blue),
           ),
