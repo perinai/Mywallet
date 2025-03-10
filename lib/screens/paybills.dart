@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 
-// PayBillsPage widget for the Pay Bills screen.
+void main() {
+  runApp(const MaterialApp(
+    debugShowCheckedModeBanner: false,
+    home: PayBillsPage(),
+  ));
+}
+
+// PayBillsPage widget with updated banking-style UI
 class PayBillsPage extends StatefulWidget {
   const PayBillsPage({super.key});
 
@@ -9,25 +16,26 @@ class PayBillsPage extends StatefulWidget {
 }
 
 class _PayBillsPageState extends State<PayBillsPage> {
-  String biller = '';  // Store the selected biller.
-  double amount = 0.0;  // Store the bill payment amount.
-  String paymentMethod = ''; // Store the selected payment method.
+  final TextEditingController billerController = TextEditingController();
+  final TextEditingController amountController = TextEditingController();
+  String paymentMethod = '';
 
-  // Function to confirm the bill payment.
   void _confirmPayment() {
-    if (biller.isNotEmpty && amount > 0 && paymentMethod.isNotEmpty) {
+    if (billerController.text.isNotEmpty &&
+        amountController.text.isNotEmpty &&
+        double.tryParse(amountController.text) != null &&
+        paymentMethod.isNotEmpty) {
       Navigator.push(
         context,
         MaterialPageRoute(
           builder: (context) => PaymentConfirmationPage(
-            biller: biller,
-            amount: amount,
+            biller: billerController.text,
+            amount: double.parse(amountController.text),
             paymentMethod: paymentMethod,
           ),
         ),
       );
     } else {
-      // Show an error if any field is empty.
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Please fill all fields')),
       );
@@ -37,76 +45,110 @@ class _PayBillsPageState extends State<PayBillsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Pay Bills')),  // AppBar with page title.
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),  // Padding around the content.
-        child: Column(
-          children: [
-            // Biller input field
-            TextField(
-              decoration: const InputDecoration(labelText: 'Biller'),  // Label for biller field.
-              onChanged: (value) {
-                setState(() {
-                  biller = value;  // Update biller name when text changes.
-                });
-              },
-            ),
-            const SizedBox(height: 16),  // Spacer between input fields.
-
-            // Amount input field
-            TextField(
-              decoration: const InputDecoration(labelText: 'Amount'),  // Label for amount field.
-              keyboardType: TextInputType.number,  // Only allows numeric input.
-              onChanged: (value) {
-                setState(() {
-                  amount = double.tryParse(value) ?? 0.0;  // Update amount if valid.
-                });
-              },
-            ),
-            const SizedBox(height: 16),  // Spacer between input fields.
-
-            // Payment method dropdown
-            DropdownButtonFormField<String>(
-              decoration: const InputDecoration(labelText: 'Payment Method'),  // Label for the dropdown.
-              value: paymentMethod.isEmpty ? null : paymentMethod,  // Set initial value.
-              items: const [
-                // Dropdown items for payment methods.
-                DropdownMenuItem(
-                  value: 'Bank Account',
-                  child: Text('Bank Account'),
-                ),
-                DropdownMenuItem(
-                  value: 'Mobile Wallet',
-                  child: Text('Mobile Wallet'),
-                ),
-              ],
-              onChanged: (value) {
-                setState(() {
-                  paymentMethod = value ?? '';  // Update selected payment method.
-                });
-              },
-            ),
-            const SizedBox(height: 16),  // Spacer between input fields.
-
-            // Proceed button to confirm payment
-            ElevatedButton(
-              onPressed: _confirmPayment,  // Trigger confirmation when pressed.
-              child: const Text('Proceed to Confirm'),  // Button text.
-            ),
-          ],
+      backgroundColor: Colors.blue.shade900, // Banking theme
+      appBar: AppBar(
+        backgroundColor: Colors.blue.shade900,
+        elevation: 0,
+        title: const Text(
+          'Pay Bills',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 22,
+            color: Colors.white,
+          ),
         ),
+        centerTitle: true,
+      ),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              // Biller Input Field
+              _customTextField(
+                controller: billerController,
+                label: 'Biller Name',
+                keyboardType: TextInputType.text,
+              ),
+              const SizedBox(height: 16),
+
+              // Amount Input Field
+              _customTextField(
+                controller: amountController,
+                label: 'Amount (KES)',
+                keyboardType: TextInputType.number,
+              ),
+              const SizedBox(height: 16),
+
+              // Payment Method Dropdown
+              DropdownButtonFormField<String>(
+                decoration: _inputDecoration('Payment Method'),
+                value: paymentMethod.isEmpty ? null : paymentMethod,
+                items: const [
+                  DropdownMenuItem(value: 'Bank Account', child: Text('Bank Account')),
+                  DropdownMenuItem(value: 'Mobile Wallet', child: Text('Mobile Wallet')),
+                ],
+                onChanged: (value) => setState(() => paymentMethod = value ?? ''),
+              ),
+              const SizedBox(height: 20),
+
+              // Confirm Button
+              ElevatedButton(
+                onPressed: _confirmPayment,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.orangeAccent,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  padding: const EdgeInsets.symmetric(vertical: 14),
+                ),
+                child: const Text(
+                  'Proceed to Confirm',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _customTextField({required TextEditingController controller, required String label, required TextInputType keyboardType}) {
+    return TextField(
+      controller: controller,
+      style: const TextStyle(color: Colors.white),
+      keyboardType: keyboardType,
+      decoration: _inputDecoration(label),
+    );
+  }
+
+  InputDecoration _inputDecoration(String label) {
+    return InputDecoration(
+      labelText: label,
+      labelStyle: const TextStyle(color: Colors.white70),
+      filled: true,
+      fillColor: Colors.blue.shade800,
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: BorderSide.none,
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: const BorderSide(color: Colors.orangeAccent),
       ),
     );
   }
 }
 
-// PaymentConfirmationPage widget for confirming bill payment.
+// Payment Confirmation Page
 class PaymentConfirmationPage extends StatelessWidget {
   final String biller;
   final double amount;
   final String paymentMethod;
 
-  // Constructor to receive payment details.
   const PaymentConfirmationPage({
     Key? key,
     required this.biller,
@@ -117,41 +159,90 @@ class PaymentConfirmationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Confirm Payment')),  // AppBar with title.
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),  // Padding around the content.
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,  // Align content to left.
-          children: [
-            const Text('Payment Details', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),  // Heading text.
-            const SizedBox(height: 16),  // Spacer between heading and content.
-            Text('Biller: $biller'),  // Display biller info.
-            Text('Amount: \$${amount.toStringAsFixed(2)}'),  // Display amount with two decimals.
-            Text('Payment Method: $paymentMethod'),  // Display payment method.
-            const SizedBox(height: 20),  // Spacer before buttons.
-
-            // Confirm Button to process the payment
-            ElevatedButton(
-              onPressed: () {
-                // Process the payment (e.g., send request to backend).
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Payment Successful')),  // Success message.
-                );
-                Navigator.popUntil(context, (route) => route.isFirst);  // Go back to the Dashboard.
-              },
-              child: const Text('Confirm Payment'),  // Button text.
-            ),
-            const SizedBox(height: 10),  // Spacer between buttons.
-
-            // Cancel Button to go back to the Pay Bills page
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);  // Go back to the Pay Bills page.
-              },
-              child: const Text('Cancel'),  // Button text.
-            ),
-          ],
+      backgroundColor: Colors.blue.shade900,
+      appBar: AppBar(
+        backgroundColor: Colors.blue.shade900,
+        elevation: 0,
+        title: const Text(
+          'Confirm Payment',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22, color: Colors.white),
         ),
+        centerTitle: true,
+      ),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+          child: Container(
+            padding: const EdgeInsets.all(16.0),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(12),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black26,
+                  blurRadius: 10,
+                  offset: const Offset(0, 5),
+                ),
+              ],
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'Payment Details',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.blue),
+                ),
+                const SizedBox(height: 16),
+                _detailText('Biller', biller),
+                _detailText('Amount', 'KES ${amount.toStringAsFixed(2)}'),
+                _detailText('Payment Method', paymentMethod),
+                const SizedBox(height: 20),
+
+                // Confirm Payment Button
+                ElevatedButton(
+                  onPressed: () {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Payment Successful')),
+                    );
+                    Navigator.popUntil(context, (route) => route.isFirst);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.orangeAccent,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    padding: const EdgeInsets.symmetric(vertical: 14),
+                  ),
+                  child: const Text(
+                    'Confirm Payment',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                const SizedBox(height: 10),
+
+                // Cancel Button
+                TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: const Text(
+                    'Cancel',
+                    style: TextStyle(color: Colors.red, fontSize: 16),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _detailText(String label, String value) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4.0),
+      child: Text(
+        '$label: $value',
+        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
       ),
     );
   }
