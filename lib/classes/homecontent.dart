@@ -13,17 +13,20 @@ class Homecontent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.blue.shade900, // Matched Login Page
+      appBar: AppBar(
+        backgroundColor: Colors.blue.shade900, // Deep Blue
+        elevation: 0, // No shadow
+        automaticallyImplyLeading: false, // Removes the back arrow
+      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Greeting Section
             _upperText(),
-            // Card Section
             _materCardSection(),
             const SizedBox(height: 30),
-            // Grid Menu Section
             _middleScreenButtons(context),
           ],
         ),
@@ -31,30 +34,6 @@ class Homecontent extends StatelessWidget {
     );
   }
 
-  // Menu Item Widget
-  Widget _buildMenuItem(IconData icon, String label, VoidCallback onTap) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          CircleAvatar(
-            radius: 30,
-            backgroundColor: Colors.blue.withOpacity(0.1),
-            child: Icon(icon, color: Colors.blue, size: 30),
-          ),
-          const SizedBox(height: 10),
-          Text(
-            label,
-            textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 14),
-          ),
-        ],
-      ),
-    );
-  }
-
- 
   // Grid Menu Section
   Widget _middleScreenButtons(BuildContext context) {
     return Expanded(
@@ -66,73 +45,60 @@ class Homecontent extends StatelessWidget {
           _buildMenuItem(
             Icons.account_balance_wallet,
             'Account\nand Card',
-            () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const AccountAndCardPage()),
-              );
-            },
+            () => Navigator.push(context, MaterialPageRoute(builder: (context) => const AccountAndCardPage())),
           ),
           _buildMenuItem(
             Icons.swap_horiz,
             'Transfer',
-            () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const TransferPage()),
-              );
-            },
+            () => Navigator.push(context, MaterialPageRoute(builder: (context) => const TransferPage())),
           ),
           _buildMenuItem(
             Icons.attach_money,
             'Withdraw',
-            () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const WithdrawPage()),
-              );
-            },
+            () => Navigator.push(context, MaterialPageRoute(builder: (context) => const WithdrawPage())),
           ),
           _buildMenuItem(
             Icons.phone_android,
             'Mobile\nrecharge',
-            () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const MobileRechargePage()),
-              );
-            },
+            () => Navigator.push(context, MaterialPageRoute(builder: (context) => const MobileRechargePage())),
           ),
           _buildMenuItem(
             Icons.receipt,
             'Pay the bill',
-            () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const PayTheBillPage()),
-              );
-            },
+            () => Navigator.push(context, MaterialPageRoute(builder: (context) => const PayTheBillPage())),
           ),
           _buildMenuItem(
             Icons.credit_card,
             'Credit card',
-            () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const CreditCardPage()),
-              );
-            },
+            () => Navigator.push(context, MaterialPageRoute(builder: (context) => const CreditCardPage())),
           ),
           _buildMenuItem(
             Icons.insert_chart,
             'Transaction\nreport',
-            () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const TransactionReportPage()),
-              );
-            },
+            () => Navigator.push(context, MaterialPageRoute(builder: (context) => const TransactionReportPage())),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Menu Item Widget (Styled like Login Page)
+  Widget _buildMenuItem(IconData icon, String label, VoidCallback onTap) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          CircleAvatar(
+            radius: 30,
+            backgroundColor: Colors.blue.shade800, // Matched Login Page Fields
+            child: Icon(icon, color: Colors.orangeAccent, size: 30), // Orange Accent
+          ),
+          const SizedBox(height: 10),
+          Text(
+            label,
+            textAlign: TextAlign.center,
+            style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.white70),
           ),
         ],
       ),
@@ -142,17 +108,18 @@ class Homecontent extends StatelessWidget {
 
 // Greeting Section
 Widget _upperText() {
-  return Container(
-    child: const Column(
+  return const Padding(
+    padding: EdgeInsets.only(top: 20.0),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(height: 20),
         Text(
           'Good Morning,',
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white),
         ),
         Text(
           'Gega!',
-          style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Colors.orangeAccent),
         ),
         SizedBox(height: 20),
       ],
@@ -160,15 +127,14 @@ Widget _upperText() {
   );
 }
 
+// Card Section (Styled like Login Page)
 Widget _materCardSection() {
   return Container(
+    width: double.infinity,
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(16),
-      gradient: const LinearGradient(
-        colors: [Color(0xFF3C5AFE), Color(0xFF42A5F5)],
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
-      ),
+      color: Colors.blue.shade800, // Deep Blue (like input fields)
+      border: Border.all(color: Colors.orangeAccent, width: 2), // Orange Border
       boxShadow: [
         BoxShadow(
           color: Colors.black.withOpacity(0.1),
@@ -224,7 +190,7 @@ Widget _materCardSection() {
             child: Text(
               'VISA',
               style: TextStyle(
-                color: Colors.white,
+                color: Colors.orangeAccent,
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),

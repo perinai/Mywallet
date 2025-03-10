@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:my_pocket_wallet/screens/withdraw.dart';
 import 'sendmoney.dart'; // Importing the SendMoneyPage for navigation.
 import 'paybills.dart'; // Importing the PayBillsPage for navigation.
+import 'withdraw.dart'; // Importing the WithdrawScreen for navigation.
+
 
 class DashboardPage extends StatelessWidget {
   const DashboardPage(
