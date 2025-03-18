@@ -11,9 +11,7 @@
 - User Profile: Manage user profiles and update personal information.
 - Security: Two-factor authentication (optional) and encrypted data storage.
 
-# Screenshots
-![Login Screen](assets/images/readme1.png)
-![Home Screen](assets/images/readme2.png)
+
 
 # Tech Stack
 - Frontend: Flutter (Dart)
