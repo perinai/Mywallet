@@ -43,8 +43,8 @@ Widget _topImageSection() {
 }
 
 Widget _middleScreenText() {
-  return Column(
-    children: const [
+  return const Column(
+    children: [
       Text(
         "My Pocket Wallet",
         style: TextStyle(
