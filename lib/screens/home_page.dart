@@ -20,9 +20,9 @@ class _HomePageState extends State<HomePage> {
   ];
 
   // Define colors from your Login & Signup screens
-  final Color primaryColor = Color(0xFF4A90E2); // Adjust to match login/signup
-  final Color backgroundColor = Color(0xFFF5F7FA);
-  final Color bottomNavSelectedColor = Color(0xFF4A90E2);
+  final Color primaryColor = const Color(0xFF4A90E2); // Adjust to match login/signup
+  final Color backgroundColor = const Color(0xFFF5F7FA);
+  final Color bottomNavSelectedColor = const Color(0xFF4A90E2);
   final Color bottomNavUnselectedColor = Colors.grey;
 
   @override
