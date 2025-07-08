@@ -1,0 +1,23 @@
+{
+  "name": "Flutter & Firebase Pocket Wallet",
+  "image": "mcr.microsoft.com/devcontainers/flutter:latest",
+  // Or a specific stable version, e.g., "mcr.microsoft.com/devcontainers/flutter:3.16"
+  "features": {
+    // Install Firebase CLI for potential future use (e.g., emulators, deploy)
+    "ghcr.io/devcontainers/features/firebase-cli:1": {}
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "Dart-Code.dart-code",
+        "Dart-Code.flutter",
+        "ms-azuretools.vscode-docker", // Useful for managing dev containers
+        "eamodio.gitlens" // Popular Git extension
+      ]
+    }
+  },
+  // Forward the port Flutter uses for its web server (usually 80 or a higher one like 5000/8080)
+  "forwardPorts": [80, 5000, 8080],
+  // Command to run after the container is created
+  "postCreateCommand": "flutter pub get"
+}
